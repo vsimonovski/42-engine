@@ -18,6 +18,7 @@
   "homepage": "https://github.com/zsevic/hackathon_engine#readme",
   "dependencies": {
     "express": "^4.14.0",
-    "requestify": "^0.2.5"
+    "requestify": "^0.2.5",
+    "sync-request": "^3.0.1"
   }
 }
