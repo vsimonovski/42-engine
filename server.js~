@@ -18,7 +18,10 @@ function crawling(url){
 				toCrawl.push(matches[3]);
 				console.log(matches[3]);
 			}
+			//var out=toCrawl.shift();
 			crawled[toCrawl.shift()]=true;
+			console.log(crawled);
+			console.log(toCrawl);
 		});
 	}
 }
