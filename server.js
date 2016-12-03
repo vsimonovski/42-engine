@@ -7,6 +7,10 @@ var crawled={};
 
 var urlRegex=new RegExp(/<a href="(.*?)\/?".*>(.*?)<\/a>/g);
 
+function getPosition(string, char, index) {
+   return string.split(char, index).join(char).length;
+}
+
 function crawling(url){
 
   var brojiteracija = 0
@@ -28,7 +32,13 @@ function crawling(url){
 				}
 				else if(matches[1].indexOf("https://") == -1)
 				{
-					sajt = toCrawl[0] +"/" + matches[1];
+					if(matches[1].indexOf("/") == 0){
+						console.log("bshbahshshashshahjasjsjasbsknckdmclclemlecmclcmelmclemcmlcemelcm");
+						var pocetak=getPosition(toCrawl[0],"/",3);
+						sajt = toCrawl[0].substring(0,pocetak)+ "/" + matches[1];
+					}else{
+						sajt = toCrawl[0] +"/" + matches[1];
+					}
 					if(!(crawled[sajt] == true || (toCrawl.indexOf(sajt)>-1) || sajt.indexOf('#') != -1))
 					{
 						toCrawl.push(sajt);
