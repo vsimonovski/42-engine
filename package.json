@@ -15,5 +15,9 @@
   "bugs": {
     "url": "https://github.com/zsevic/hackathon_engine/issues"
   },
-  "homepage": "https://github.com/zsevic/hackathon_engine#readme"
+  "homepage": "https://github.com/zsevic/hackathon_engine#readme",
+  "dependencies": {
+    "express": "^4.14.0",
+    "requestify": "^0.2.5"
+  }
 }
