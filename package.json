@@ -19,6 +19,7 @@
   "dependencies": {
     "express": "^4.14.0",
     "linkscrape": "^1.0.0",
+    "mongodb": "^2.2.12",
     "requestify": "^0.2.5",
     "sync-request": "^3.0.1"
   },
