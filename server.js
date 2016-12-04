@@ -1,6 +1,7 @@
 var express=require("express");
 var app=express();
 var request=require("sync-request");
+var mongodb=require("mongodb").MongoClient;
 
 var words=require("./words");
 var indexing={};
@@ -12,7 +13,19 @@ var urlRegex=new RegExp(/<a href="(.*?)\/?".*>(.*?)<\/a>/g);
 
 var linkscrape=require("linkscrape");
 
-
+mongodb.connect("mongodb://localhost:27017/indexes", function(err, db) {
+ 	db.collection("wordsee",function(err,col){
+		var json=JSON.stringify(indexing);
+		json=JSON.parse(json);
+		col.insert(json);	
+		/*app.get("/:keyword",function(req,res){
+			var data=col.find({});
+			data.forEach(function(i){
+				res.send(data[req.params.keyword]);
+			});
+		});*/
+	});
+});
 
 function crawling(url){
 var brojiteracija = 0;
@@ -44,7 +57,8 @@ var brojiteracija = 0;
 						if(indexing.hasOwnProperty(keyword)){
 							indexing[keyword].push(toCrawl[0]);
 						}else{
-							indexing[keyword]=[toCrawl[0]];
+							indexing[keyword]=[];
+							indexing[keyword].push(toCrawl[0]);
 						}
 					}
 				}
@@ -52,7 +66,7 @@ var brojiteracija = 0;
         console.log(brojiteracija + "*************************");
 //        console.log(toCrawl);
 //        console.log(crawled);
-        if(brojiteracija == 10) {
+        if(brojiteracija == 5) {
             break;
         }
         //	console.log(brojiteracija);
