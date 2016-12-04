@@ -1,2 +1,6 @@
 node_modules
+<<<<<<< HEAD
 server.js~
+=======
+.vscode
+>>>>>>> 59ba2b92b321f39020ca4345f69321907714f237
