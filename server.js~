@@ -7,6 +7,8 @@ var crawled={};
 
 var urlRegex=new RegExp(/<a href="(.*?)\/?".*>(.*?)<\/a>/g);
 
+var linkscrape=require("linkscrape");
+
 function getPosition(string, char, index) {
    return string.split(char, index).join(char).length;
 }
@@ -16,10 +18,23 @@ function crawling(url){
   var brojiteracija = 0
 	while(toCrawl.length>0)
 	{ 
-		var response=request('get',toCrawl[0].trim());
+		var response=request('get',toCrawl[0]);
 		response=response.getBody();
-			var matches;
-			while(matches=urlRegex.exec(response)){
+			var matches;			
+			linkscrape(toCrawl[0],response,function(links,$){
+				var i=0;
+				while(i<links.length){
+	//				console.log(toCrawl);
+					var link=links[i].link;
+					if(link!==null && link.indexOf("https://")===-1){
+						if(!(crawled[link] == true || (toCrawl.indexOf(link)>-1) || link.indexOf('#') != -1)){
+							toCrawl.push(link);
+						}
+					}
+					i++;
+				}
+			});
+		/*while(matches=urlRegex.exec(response)){
 				var sajt = matches[1];
 				if(matches[1].indexOf("http://") == 0)
 				{
@@ -33,7 +48,13 @@ function crawling(url){
 				else if(matches[1].indexOf("https://") == -1)
 				{
 					if(toCrawl[0].indexOf(".html") == toCrawl[0].length-5){
-						sajt = toCrawl[0].substring(0,(getPosition(toCrawl[0],"/",3)))+"/"+matches[1];
+			//			//var regex=new RegExp(/\/(.*?)\/.);
+						if(matches[1].indexOf("/")===0){
+							sajt = toCrawl[0].substring(0,(getPosition(toCrawl[0],"/",3)))+"/"+matches[1];
+						}else{
+							console.log("else situacija: "+ matches[1]+" "+ (toCrawl[0]+"/"+matches[1]));
+							sajt=toCrawl[0]+"/"+matches[1];
+						}
 					}else{
 						sajt = toCrawl[0] +"/" + matches[1];
 					}
@@ -41,16 +62,17 @@ function crawling(url){
 					{
 						toCrawl.push(sajt);
 			//			console.log("Dodat u niz: " + sajt);
-		//				console.log(toCrawl);
+			//			console.log(toCrawl);
 					}
-				}
-		}
+				}*/
 			crawled[toCrawl[0]]=true;
 			brojiteracija++;
 			toCrawl.shift();
 			console.log(brojiteracija + "*************************");
 			console.log(toCrawl);
 			console.log(crawled);
+			if(brojiteracija == 3)
+				break;
    	//	console.log(brojiteracija);
 
 	}
