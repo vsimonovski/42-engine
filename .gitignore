@@ -1,3 +1,4 @@
 node_modules
 .vscode
 app/assets/vendor/*
+server.js~

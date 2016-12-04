@@ -8,15 +8,15 @@ module.exports=function(body){
 		str+=matches[2];
 	}
 
-	arr=str.split(/[\s,.|:;'?]+/);
+	var arr=str.split(/[\s,.|":;'?]+/);
 	
-	var uniqueArray = arr.filter(function(elem, pos) {
+	var uniqueArr = arr.filter(function(elem, pos) {
     return arr.indexOf(elem) == pos;
 	});
 
-	for(var k in uniqueArray){
-		if(uniqueArray[k].length<=1){
-			delete uniqueArray[k];
+	for(var k in uniqueArr){
+		if(uniqueArr[k].length<=1){
+			delete uniqueArr[k];
 		}
 	}
 
