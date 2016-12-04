@@ -1,22 +1,27 @@
-@import url('https://fonts.googleapis.com/css?family=Open+Sans');
 @import url('https://fonts.googleapis.com/css?family=Raleway');
 
+/* General */
 input:focus, textarea:focus {
     outline: none;
 }
 
-
-.rel-pos {
-    position: relative;
-    width: 70%;
-    margin: 0 auto;
+* {
+    font-family: "Raleway", sans-serif;
 }
+
+/* Search */
 
 .search-wrap {
     padding-top: 300px;
 }
 
-.search-field {
+.search-wrap--relative {
+    position: relative;
+    width: 70%;
+    margin: 0 auto;
+}
+
+.search-wrap__field {
     height: 40px;
     margin: 0 auto;
     display: block;
@@ -24,28 +29,46 @@ input:focus, textarea:focus {
     width: 100%;
     border: 0px;
     border-bottom: 2px solid #3498db;
-    font-family: "Open Sans", sans-serif;
+    
 }
 
-.ghost-btn {
+.search-wrap__btn {
     display: block;
     margin: 0 auto;
-    background: transparent;
+    background: #fff;
     border-radius: 24px;
     border: 0px;
     text-transform: uppercase;
     font-size: 18px;
-    font-family: 'Open Sans', sans-serif;
     position: absolute;
     top: 0px;
-    right: 0px;
+    right: -3px;
+}
+
+/* Results */
+.results-wrap {
+    width: 70%;
+    margin: 0 auto;
+}
+
+.results-wrap__single {
+    margin-bottom: 10px;
+}
+
+.results-wrap__empty {
+    font-size: 14px;
+}
+
+/* Vendor */
+.fa-angle-right {
+    margin-right: 5px;
 }
 
 /* Placeholder */
 ::-webkit-input-placeholder {
    letter-spacing: 1px; 
    color: #95a5a6;
-   font-family: 'Raleway', sans-serif;
-   font-size: 18px;
+   
+   font-size: 16px;
    line-height: 16px;
 }

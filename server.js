@@ -1,34 +1,37 @@
-var express=require("express");
-var app=express();
-var request=require("sync-request");
-var mongodb=require("mongodb").MongoClient;
+var express = require("express"),
+    app = express(),
+    request = require("sync-request"),
+    mongodb = require("mongodb").MongoClient,
+    words = require("./words"),
+    indexing = {},
+    toCrawl = ["http://localbyteout.com"],
+    crawled = {},
+    urlRegex = new RegExp(/<a href="(.*?)\/?".*>(.*?)<\/a>/g),
+    linkscrape = require("linkscrape"),
+    globalRes = {};
 
-var words=require("./words");
-var indexing={};
 
-var toCrawl=["http://localbyteout.com"];
-var crawled={};
 
-var urlRegex=new RegExp(/<a href="(.*?)\/?".*>(.*?)<\/a>/g);
-
-var linkscrape=require("linkscrape");
-
-mongodb.connect("mongodb://localhost:27017/indexes", function(err, db) {
- 	db.collection("wordsee",function(err,col){
-		var json=JSON.stringify(indexing);
-		json=JSON.parse(json);
-		col.insert(json);	
-		/*app.get("/:keyword",function(req,res){
-			var data=col.find({});
-			data.forEach(function(i){
-				res.send(data[req.params.keyword.toLowerCase()]);
-			});
-		});*/
-	});
+app.get("/:keyword",function(req,res){
+    var query = req.params.keyword;
+    mongodb.connect("mongodb://localhost:27017/indexes", function(err, db) {
+        db.collection("wordsefe9.4",function(err,col){
+            json = JSON.stringify(indexing);
+            json = JSON.parse(json);
+            col.insert(json);
+            data = col.find().forEach( function(myDoc) {
+                globalRes[query] = myDoc[query];
+            });
+        });
+    });
+    setTimeout(function(){
+        res.send(JSON.stringify(globalRes));
+    }, 100);
+    
 });
 
 function crawling(url){
-var brojiteracija = 0;
+var numOfIterations = 0;
 
    while(toCrawl.length>0)	{ 
         var response=request('get',toCrawl[0]);
@@ -48,7 +51,7 @@ var brojiteracija = 0;
             }
         });
         crawled[toCrawl[0]]=true;
-        brojiteracija++;
+        numOfIterations++;
 				var arr=words(response);
 				console.log(arr);
 				for(var i = 0; i < arr.length; i++){
@@ -62,28 +65,14 @@ var brojiteracija = 0;
 						}
 					}
 				}
+        console.log(numOfIterations + "*************************");
         toCrawl.shift();
-        console.log(brojiteracija + "*************************");
-//        console.log(toCrawl);
-//        console.log(crawled);
-        if(brojiteracija == 5) {
+        if(numOfIterations === 7) {
             break;
         }
-        //	console.log(brojiteracija);
     }
-		var php="PHP".toLowerCase();
-		console.log(indexing[php]);
 }
 
 crawling(toCrawl[0]);
-
-
-// REST API
 app.use(express.static(__dirname + '/app/'));
-var mockupData = require('./mockup.json');
-
-app.get('/:keyword', function( req, res ){
-    res.json(mockupData[req.params.keyword]);
-});
-
 app.listen('3030');
