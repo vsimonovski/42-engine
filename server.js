@@ -13,9 +13,8 @@ function getPosition(string, char, index) {
    return string.split(char, index).join(char).length;
 }
 
-function crawling(url){
-
-  var brojiteracija = 0
+function crawling(url,keyword){
+  var brojiteracija = 0;
 	while(toCrawl.length>0)
 	{ 
 		var response=request('get',toCrawl[0]);
@@ -46,4 +45,4 @@ function crawling(url){
 	}
 }
 
-crawling(toCrawl[0]);
+crawling(toCrawl[0],keyword);
