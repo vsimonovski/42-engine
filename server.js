@@ -16,7 +16,7 @@ function getPosition(string, char, index) {
 function crawling(url){
 var brojiteracija = 0;
 
-    while(toCrawl.length>0)	{ 
+   while(toCrawl.length>0)	{ 
         var response=request('get',toCrawl[0]);
         response=response.getBody();
         var matches;			
@@ -50,3 +50,11 @@ crawling(toCrawl[0]);
 
 
 // REST API
+app.use(express.static(__dirname + '/app/'));
+var mockupData = require('./mockup.json');
+
+app.get('/:keyword', function( req, res ){
+    res.json(mockupData[req.params.keyword]);
+});
+
+app.listen('3030');

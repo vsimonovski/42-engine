@@ -21,5 +21,8 @@
     "linkscrape": "^1.0.0",
     "requestify": "^0.2.5",
     "sync-request": "^3.0.1"
+  },
+  "devDependencies": {
+    "bower": "^1.8.0"
   }
 }
