@@ -21,7 +21,7 @@ mongodb.connect("mongodb://localhost:27017/indexes", function(err, db) {
 		/*app.get("/:keyword",function(req,res){
 			var data=col.find({});
 			data.forEach(function(i){
-				res.send(data[req.params.keyword]);
+				res.send(data[req.params.keyword.toLowerCase()]);
 			});
 		});*/
 	});
