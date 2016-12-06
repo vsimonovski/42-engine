@@ -17,7 +17,6 @@
   },
   "homepage": "https://github.com/zsevic/hackathon_engine#readme",
   "dependencies": {
-    "dns": "^0.2.2",
     "dns-sync": "^0.1.3",
     "express": "^4.14.0",
     "linkscrape": "^1.0.0",

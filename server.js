@@ -8,7 +8,7 @@ var indexing={};
 
 var tld=require("tldjs");
 
-var toCrawl=["http://localbyteout.com"];
+var toCrawl=["http://google.com"];
 var crawled={};
 var DNSPassed=[];
 
@@ -17,7 +17,6 @@ var urlRegex=new RegExp(/<a href="(.*?)\/?".*>(.*?)<\/a>/g);
 var domainRegex=new RegExp(/10\.(0-9|[1-9][0-9]|1[1-9][0-9]|2([0-4][0-9]|5[0-5]))/);
 
 var linkscrape=require("linkscrape");
-var dns=require("dns");
 
 /*mongodb.connect("mongodb://linksuser:linkspass@ds119598.mlab.com:19598/hack_engine", function(err, db) {
  	db.collection("wordsee",function(err,col){
